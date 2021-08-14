@@ -1,0 +1,18 @@
+7/7:
+
+-converted npy arrays into matlab ones
+-explored code and readme, learned that:
+
+	The code generates a set of Gabor wavelets (created using trig functions in a matlab function) and multiples each to the original image (F = Gfwd * I) to obtain a set of Gabor "features" called F. These features are then linearly combined to reconstruct the original image.
+
+-read TSL paper about 2D Gabor image reconstruction (confused)
+
+-used Tang stimuli with demo program to reconstruct images, noted that Tang data has dark bars at the bottom and left edges (which may interfere with reconstruction)
+
+-wrote my own code, loaded all datasets and the first image of the natural stimuli (monkey) in grayscale
+
+-the open-source MATLAB script is an interactive tool/visualizer that allows you to see the wavelets being added, so need to modify to just reconstruct
+
+-obtained the set of filter values (res), then reconstructed succesfully
+
+-center crop down to 40x40
