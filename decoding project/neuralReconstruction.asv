@@ -7,11 +7,15 @@ mkA_NS_averaged = mean(mkA_NS_data, 2, "omitnan");
 randomData = mkA_NS_averaged(numPic);
 
 
-regressionModels = load('responseRegression.mat').regressionModels;
+%regressionModels = load('responseRegression.mat').regressionModels;
 GWfilter = load("GWfilter.mat").GWfilter;
 
 for i = 1:5
     for j = 1:8 
+        
+        filename = strcat(strcat(fullfile("res","regressionModels_"), num2str(i)), strcat("_", num2str(j)),".mat");
+        regressionModels = load('responseRegression.mat').modelGroup;
+        
         groupRegressionModels = cell2mat(regressionModels{i,j}); 
         groupLength = numel(groupRegressionModels);
         groupRegressionModels = reshape(groupRegressionModels, 1, groupLength);

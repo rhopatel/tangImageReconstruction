@@ -36,7 +36,7 @@ for i = 2:5
         disp(size(groupFilterResponses));
         
         for k = 1:groupLength
-            disp(k);
+            %disp(k);
             filterResponse = groupFilterResponses(:,k);
             %disp(size(filterResponse));
             %disp(sum(isnan(filterResponse)));
@@ -52,7 +52,7 @@ for i = 2:5
         N = ceil(sqrt(numel(groupRegressionModels)));
   
         filename = strcat(strcat(fullfile("res","regressionModels_"), num2str(i)), strcat("_", num2str(j)),".mat");
-        modelGroup = {reshape(groupRegressionModels, N, N)};
+        modelGroup = reshape(groupRegressionModels, N, N);
         save(filename,"modelGroup");
         
         clear modelGroup;
