@@ -18,6 +18,7 @@ function imageReconstruction(numPic)
         steps = (m+1)*K;
 
         for a = 1:m
+            for b = 0:K-1
                 
                 tmpResponse = cell2mat(reconstruction(a+1, b+1));
                 tmpGWfilter = GWfilter(a+1,b+1).even;
