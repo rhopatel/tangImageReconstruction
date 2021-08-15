@@ -9,7 +9,6 @@ selectedData = mkA_NS_averaged(numPic, :);
 
 %regressionModels = load('responseRegression.mat').regressionModels;
 
-
 for i = 2:5
     for j = 1:8 
         

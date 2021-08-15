@@ -10,7 +10,6 @@ function imageReconstruction(numPic)
 
         tmpImage = zeros(imageSize);
         tmpImageEven = zeros(imageSize);
-        tmpImageOdd  = zeros(imageSize);
 
         m = ceil(log2(imageSize(1)/2));
         K = 8;   
@@ -18,39 +17,15 @@ function imageReconstruction(numPic)
         step  = 0;
         steps = (m+1)*K;
 
-        for ii = 2:5
-            for ll = 1:8
-                %{
-                tmpResponse = res(ii+1, ll+1).even;
-                tmpGWfilter = GWfilter(ii+1,ll+1).even;
-                if ii == 0
-                    tmpEven = myReconstruction2(tmpGWfilter, tmpResponse, 2^ii, imageSize);
+        for a = 1:m
+                
+                tmpResponse = cell2mat(reconstruction(a+1, b+1));
+                tmpGWfilter = GWfilter(a+1,b+1).even;
+                if a == 0
+                    tmpEven = myReconstruction2(tmpGWfilter, tmpResponse, 2^(a+1), imageSize);
                     tmpEven = tmpEven * 2/3;
                 else
-                    tmpEven = myReconstruction2(tmpGWfilter, tmpResponse, 2^ii*3/2, imageSize);
-                end
-                tmpResponse = res(ii+1, ll+1).odd;
-                tmpGWfilter = GWfilter(ii+1,ll+1).odd;
-                if ii == 0
-                    tmpOdd  = myReconstruction2(tmpGWfilter, tmpResponse, 2^ii, imageSize);
-                    tmpOdd  = tmpOdd * 2/3;
-                else
-                    tmpOdd  = myReconstruction2(tmpGWfilter, tmpResponse, 2^ii*3/2, imageSize);
-                end
-                tmpImageEven = tmpImageEven + tmpEven;
-                tmpImageOdd  = tmpImageOdd  + tmpOdd;
-
-                step = step + 1;
-                waitbar(step / steps)
-                %}
-
-                tmpResponse = cell2mat(reconstruction(ii, ll));
-                tmpGWfilter = GWfilter(ii,ll).even;
-                if ii == 0
-                    tmpEven = myReconstruction2(tmpGWfilter, tmpResponse, 2^ii, imageSize);
-                    tmpEven = tmpEven * 2/3;
-                else
-                    tmpEven = myReconstruction2(tmpGWfilter, tmpResponse, 2^ii*3/2, imageSize);
+                    tmpEven = myReconstruction2(tmpGWfilter, tmpResponse, 2^(a+1)*3/2, imageSize);
                 end
 
                 tmpImageEven = tmpImageEven + tmpEven;
@@ -84,9 +59,10 @@ function imageReconstruction(numPic)
         set(gca, 'TickDir', 'out')
         title('new reconstructed image')
 
+end
 
 
-    function res = myReconstruction2(h, X, step, tmpImageSize)
+function res = myReconstruction2(h, X, step, tmpImageSize)
         % preparation. X consists of original image surounded by zeros
         filterSize = size(h);
 
@@ -116,7 +92,7 @@ function imageReconstruction(numPic)
 
         tx = imageSize / 2 - tmpImageSize/2 + 1: imageSize / 2 + tmpImageSize/2;
         res = tmpRes(tx, tx);
-    
     end
+    
 
-end
+
