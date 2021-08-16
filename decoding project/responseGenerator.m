@@ -38,7 +38,7 @@ for ii = 0: m
         ctr = ( 4 + 2^(-ii) ) / 2;
 
         GWfilter(ii+1,ll+1).even= GaborWavelet(x,y,ii,ctr,ctr,ll,param,0);
-        %GWfilter(ii+1,ll+1).odd = GaborWavelet(x,y,ii,ctr,ctr,ll,param,1);
+        GWfilter(ii+1,ll+1).odd = GaborWavelet(x,y,ii,ctr,ctr,ll,param,1);
     end
 end
     save("GWfilter.mat","GWfilter");
@@ -53,46 +53,34 @@ for imageNumber = 1: 2250
     r = centerCropWindow2d(size(im2),[32 32]);
     im2 = imcrop(im2, r);
 
-    %meanValue = mean(im2(:));
-
-
-    % tx = 1:imageSize(1); % the width of the image
-    % ty = 1:imageSize(2); % the height of the image
-    % [x y] = meshgrid(tx,ty); x = x'; y = y';
 
     step = 0;
     steps = (m+1)*K;
 
-    %responses = cell(2250, m+1, K);
     % tic
     for ii = 0: m
 
         for ll = 0: K-1
 
-
             if ii == 0
                 even = myConv2(GWfilter(ii+1,ll+1).even, im2, 2^ii);
-                %odd = myConv2(GWfilter(ii+1,ll+1).odd , im2, 2^ii);
+                odd = myConv2(GWfilter(ii+1,ll+1).odd , im2, 2^ii);
             else        
                 even = myConv2(GWfilter(ii+1,ll+1).even, im2, 2^ii*3/2);
-                %odd = myConv2(GWfilter(ii+1,ll+1).odd , im2, 2^ii*3/2);
+                odd = myConv2(GWfilter(ii+1,ll+1).odd , im2, 2^ii*3/2);
             end
 
             step = step + 1;
-            %waitbar(step / steps)
-            %disp(imageNumber);
-            responses(imageNumber, ii+1, ll+1) = {even};
-            %responses(imageNumber, ii+2, ll+2) = odd;
+
+            evenResponses(imageNumber, ii+1, ll+1) = {even};
+            oddResponses(imageNumber, ii+1, ll+1) = {odd};
         end
     end
-    % toc
-    
-    %disp(size(res));
-    %returnValue = res;
-    %close(h);
+
 end
 
-    save("responses.mat",'responses');
+    save("evenResponses.mat",'evenResponses');
+    save("oddResponses.mat",'oddResponses');
     disp("done");
 
 

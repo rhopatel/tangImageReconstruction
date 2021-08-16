@@ -1,6 +1,8 @@
 function imageReconstruction(numPic) 
 
-    reconstruction = load("reconstruction.mat").reconstruction;
+    oddReconstruction = load("oddReconstruction.mat").reconstruction;
+    evenReconstruction = load("evenReconstruction.mat").reconstruction;
+    
     GWfilter = load("GWfilter.mat").GWfilter;
     
 
@@ -10,33 +12,43 @@ function imageReconstruction(numPic)
 
         tmpImage = zeros(imageSize);
         tmpImageEven = zeros(imageSize);
+        tmpImageOdd  = zeros(imageSize);
 
         m = ceil(log2(imageSize(1)/2));
-        K = 8;   
-
+        K = 8; 
+  
         step  = 0;
         steps = (m+1)*K;
 
-        for a = 1:m
-            for b = 0:K-1
-                
-                tmpResponse = cell2mat(reconstruction(a+1, b+1));
-                tmpGWfilter = GWfilter(a+1,b+1).even;
-                if a == 0
-                    tmpEven = myReconstruction2(tmpGWfilter, tmpResponse, 2^(a+1), imageSize);
+        for ii = 0: m
+
+            for ll = 0: K-1
+
+                tmpResponse = evenReconstruction(ii+1, ll+1);
+                tmpGWfilter = GWfilter(ii+1,ll+1).even;
+                if ii == 0
+                    tmpEven = myReconstruction2(tmpGWfilter, tmpResponse, 2^ii, imageSize);
                     tmpEven = tmpEven * 2/3;
                 else
-                    tmpEven = myReconstruction2(tmpGWfilter, tmpResponse, 2^(a+1)*3/2, imageSize);
+                    tmpEven = myReconstruction2(tmpGWfilter, tmpResponse, 2^ii*3/2, imageSize);
                 end
-
+                tmpResponse = evenReconstruction(ii+1, ll+1);
+                tmpGWfilter = GWfilter(ii+1,ll+1).odd;
+                if ii == 0
+                    tmpOdd  = myReconstruction2(tmpGWfilter, tmpResponse, 2^ii, imageSize);
+                    tmpOdd  = tmpOdd * 2/3;
+                else
+                    tmpOdd  = myReconstruction2(tmpGWfilter, tmpResponse, 2^ii*3/2, imageSize);
+                end
                 tmpImageEven = tmpImageEven + tmpEven;
-
+                tmpImageOdd  = tmpImageOdd  + tmpOdd;
 
                 step = step + 1;
                 waitbar(step / steps)
+
             end
         end
-        resultImage = tmpImageEven;
+        resultImage = tmpImageEven + tmpImageOdd;
         close(h)
 
         %% show the original image and result
