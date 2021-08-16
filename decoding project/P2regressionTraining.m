@@ -25,7 +25,7 @@ oddResponses = load('oddResponses.mat').oddResponses;
 
 
 PriorMdl = bayeslm(numPredictors);
-parityNames = {'odd','even'};
+parityNames = {'oddSummary','evenSummary'};
 
 for parity = 1:2
     
