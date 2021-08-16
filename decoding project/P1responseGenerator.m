@@ -1,4 +1,4 @@
-function responseGenerator() 
+function P1responseGenerator() 
 
 %generate Gabor filters and compute Gabor filter responses
 

@@ -1,4 +1,4 @@
-function neuralConversion(numPic) 
+function P3neuralDataConversion(numPic) 
 %load in any given image neural responses
 %use the models to forecast the Gabor response and reconstruct
 mkA_NS_data = load('matdata/mkA_NS_data.mat').mkA_NS;

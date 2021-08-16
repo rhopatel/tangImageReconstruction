@@ -1,4 +1,4 @@
-function imageReconstruction(numPic) 
+function P4imageReconstruction(numPic) 
 
     oddReconstruction = load("oddReconstruction.mat").oddReconstruction;
     evenReconstruction = load("evenReconstruction.mat").evenReconstruction;
