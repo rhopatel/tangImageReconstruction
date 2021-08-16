@@ -20,7 +20,7 @@ function imageReconstruction(numPic)
         step  = 0;
         steps = (m+1)*K;
 
-        for ii = 1: m
+        for ii = 0: m
 
             for ll = 0: K-1
 
@@ -32,7 +32,7 @@ function imageReconstruction(numPic)
                 else
                     tmpEven = myReconstruction2(tmpGWfilter, tmpResponse, 2^ii*3/2, imageSize);
                 end
-                tmpResponse = cell2mat(oddReconstruction(ii+1, ll+1));
+                tmpResponse = oddReconstruction(ii+1, ll+1);
                 tmpGWfilter = GWfilter(ii+1,ll+1).odd;
                 if ii == 0
                     tmpOdd  = myReconstruction2(tmpGWfilter, tmpResponse, 2^ii, imageSize);
