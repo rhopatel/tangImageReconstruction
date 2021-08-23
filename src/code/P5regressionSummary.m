@@ -3,12 +3,12 @@ function P5regressionSummary()
 parityNames = {'odd','even'};
 
 for parity = 1:2
-    for i = 2:5
+    for i = 1:5
         for j = 1:8 
             parityName = parityNames{parity};
 
             filename = strcat(strcat(fullfile(parityName,"regressionModels_"), num2str(i)), strcat("_", num2str(j)),".mat");
-            groupRegressionModels = load(filename).modelGroup;
+            groupRegressionModels = load(strcat("models/",filename)).modelGroup;
 
             groupLength = numel(groupRegressionModels);
             groupRegressionModels = reshape(groupRegressionModels, 1, groupLength);
@@ -27,5 +27,5 @@ for parity = 1:2
         end
     end
 end
-save("oddSummary.mat", "oddSummary");
-save("evenSummary.mat", "evenSummary");
+save("summary/oddSummary.mat", "oddSummary");
+save("summary/evenSummary.mat", "evenSummary");

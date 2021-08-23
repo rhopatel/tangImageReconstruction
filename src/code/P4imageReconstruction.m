@@ -1,9 +1,9 @@
 function P4imageReconstruction(numPic) 
-
-    oddReconstruction = load("oddReconstruction.mat").oddReconstruction;
-    evenReconstruction = load("evenReconstruction.mat").evenReconstruction;
+cd ..
+    oddReconstruction = load("data/oddReconstruction.mat").oddReconstruction;
+    evenReconstruction = load("data/evenReconstruction.mat").evenReconstruction;
     
-    GWfilter = load("GWfilter.mat").GWfilter;
+    GWfilter = load("data/GWfilter.mat").GWfilter;
     
 
     %RECONSTRUCTION
@@ -64,7 +64,7 @@ function P4imageReconstruction(numPic)
         step  = 0;
         steps = (m+1)*K;
 
-        for ii = 1: m
+        for ii = 0: m
 
             for ll = 0: K-1
 
@@ -100,8 +100,8 @@ function P4imageReconstruction(numPic)
         colormap gray
         
         im2 = rgb2gray(imread(strcat(strcat('tang_stimuli/tang/NS/',num2str(numPic)), '.png')));
-        r = centerCropWindow2d(size(im2),[32 32]);
-        im2 = imcrop(im2, r);
+        r = centerCropWindow2d(size(im2),[64 64]);
+        im2 = imresize(imcrop(im2, r), [32 32]);
 
         subplot(2,2,1)
         clim = [0 255];
@@ -118,15 +118,17 @@ function P4imageReconstruction(numPic)
         set(gca, 'TickDir', 'out')
         title('new reconstructed image')
         
-        subplot(2,2,3)
+        
+        %
+        %subplot(2,2,3)
         % clim = ([0 255] - meanValue)  * 23.2960;
         % imagesc(resultImage', clim)
-        imagesc(resultImage')
-        axis xy square
-        set(gca, 'TickDir', 'out')
-        title('Gabor filter reconstruction image')
+        %imagesc(resultImage')
+        %axis xy square
+        %set(gca, 'TickDir', 'out')
+        %title('Gabor filter reconstruction image')
         
-        
+        %
 
 end
 

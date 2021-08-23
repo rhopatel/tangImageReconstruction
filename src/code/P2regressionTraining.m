@@ -1,9 +1,10 @@
 function P2regressionTraining()
+cd ..
 
 %load in image + neural response datasets
 %compute regression with Gabor responses
 
-mkA_NS_data = load('matdata/mkA_NS_data.mat').mkA_NS;
+mkA_NS_data = load('tang_data/mkA_NS_data.mat').mkA_NS;
 
 %mkA_PT_data = load('matdata/mkA_PT_data.mat').mkA_PT;
 %mkE_NS_data = load('matdata/mkE_NS_data.mat').mkE_NS;
@@ -20,8 +21,8 @@ neuralData = reshape(mkA_NS_averaged, numImages,numPredictors);
 %monkey_A_correspondence = load('matdata/mkA_corr.mat').monkey_A_correspondence;
 %mkE_PT_stimuli = load('matdata/mkE_PT_stimuli.mat').mkE_PT_stimuli;
 
-evenResponses = load('evenResponses.mat').evenResponses;
-oddResponses = load('oddResponses.mat').oddResponses;
+evenResponses = load('data/evenResponses.mat').evenResponses;
+oddResponses = load('data/oddResponses.mat').oddResponses;
 
 
 PriorMdl = bayeslm(numPredictors);
@@ -58,7 +59,7 @@ for parity = 1:2
             
             filename = strcat(strcat(fullfile(parityName,"regressionModels_"), num2str(i)), strcat("_", num2str(j)),".mat");
             modelGroup = reshape(groupRegressionModels, N, N);
-            save(filename,"modelGroup");
+            save(strcat("models/",filename),"modelGroup");
 
             clear modelGroup;
             clear groupRegressionModels;

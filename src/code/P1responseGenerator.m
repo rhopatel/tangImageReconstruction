@@ -1,4 +1,5 @@
 function P1responseGenerator() 
+cd ..
 
 %generate Gabor filters and compute Gabor filter responses
 
@@ -41,7 +42,8 @@ for ii = 0: m
         GWfilter(ii+1,ll+1).odd = GaborWavelet(x,y,ii,ctr,ctr,ll,param,1);
     end
 end
-    save("GWfilter.mat","GWfilter");
+
+save("data/GWfilter.mat","GWfilter");
 
 %load in each image
 %save responses for each 
@@ -51,7 +53,7 @@ for imageNumber = 1: 2250
     im2 = rgb2gray(imread(strcat(strcat('tang_stimuli/tang/NS/',num2str(imageNumber)), '.png')));
 
     r = centerCropWindow2d(size(im2),[64 64]);
-    im2 = imcrop(im2, r);
+    im2 = imresize(imcrop(im2, r), [32 32]);
 
 
     step = 0;
@@ -79,9 +81,8 @@ for imageNumber = 1: 2250
 
 end
 
-    save("evenResponses.mat",'evenResponses');
-    save("oddResponses.mat",'oddResponses');
-    disp("done");
+    save("data/evenResponses.mat",'evenResponses');
+    save("data/oddResponses.mat",'oddResponses');
 
 
 function res = myConv2(h, tmpX, step)

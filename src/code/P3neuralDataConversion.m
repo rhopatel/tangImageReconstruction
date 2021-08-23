@@ -1,7 +1,9 @@
 function P3neuralDataConversion(numPic) 
+cd ..
+
 %load in any given image neural responses
 %use the models to forecast the Gabor response and reconstruct
-mkA_NS_data = load('matdata/mkA_NS_data.mat').mkA_NS;
+mkA_NS_data = load('tang_data/mkA_NS_data.mat').mkA_NS;
 mkA_NS_averaged = reshape(mean(mkA_NS_data, 2, "omitnan"), 2250, 1225);
 
 selectedData = mkA_NS_averaged(numPic, :);
@@ -12,12 +14,12 @@ selectedData = mkA_NS_averaged(numPic, :);
 parityNames = {'odd','even'};
 
 for parity = 1:2
-    for i = 2:5
+    for i = 1:5
         for j = 1:8 
             parityName = parityNames{parity};
 
             filename = strcat(strcat(fullfile(parityName,"regressionModels_"), num2str(i)), strcat("_", num2str(j)),".mat");
-            groupRegressionModels = load(filename).modelGroup;
+            groupRegressionModels = load(strcat("models/", filename)).modelGroup;
 
             groupLength = numel(groupRegressionModels);
             groupRegressionModels = reshape(groupRegressionModels, 1, groupLength);
@@ -36,5 +38,5 @@ for parity = 1:2
         end
     end
 end
-save("oddReconstruction.mat", "oddReconstruction");
-save("evenReconstruction.mat", "evenReconstruction");
+save("data/oddReconstruction.mat", "oddReconstruction");
+save("data/evenReconstruction.mat", "evenReconstruction");
