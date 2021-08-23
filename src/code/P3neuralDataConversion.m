@@ -1,5 +1,4 @@
 function P3neuralDataConversion(numPic) 
-cd ..
 
 %load in any given image neural responses
 %use the models to forecast the Gabor response and reconstruct

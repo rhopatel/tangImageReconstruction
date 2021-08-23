@@ -1,5 +1,5 @@
 function P4imageReconstruction(numPic) 
-cd ..
+
     oddReconstruction = load("data/oddReconstruction.mat").oddReconstruction;
     evenReconstruction = load("data/evenReconstruction.mat").evenReconstruction;
     

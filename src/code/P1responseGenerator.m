@@ -1,5 +1,5 @@
 function P1responseGenerator() 
-cd ..
+cd code
 
 %generate Gabor filters and compute Gabor filter responses
 
@@ -42,7 +42,7 @@ for ii = 0: m
         GWfilter(ii+1,ll+1).odd = GaborWavelet(x,y,ii,ctr,ctr,ll,param,1);
     end
 end
-
+cd ..
 save("data/GWfilter.mat","GWfilter");
 
 %load in each image

@@ -1,5 +1,4 @@
 function P2regressionTraining()
-cd ..
 
 %load in image + neural response datasets
 %compute regression with Gabor responses
