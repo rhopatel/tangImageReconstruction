@@ -50,7 +50,7 @@ for imageNumber = 1: 2250
 
     im2 = rgb2gray(imread(strcat(strcat('tang_stimuli/tang/NS/',num2str(imageNumber)), '.png')));
 
-    r = centerCropWindow2d(size(im2),[32 32]);
+    r = centerCropWindow2d(size(im2),[64 64]);
     im2 = imcrop(im2, r);
 
 
