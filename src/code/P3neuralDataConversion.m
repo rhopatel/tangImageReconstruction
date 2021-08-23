@@ -13,7 +13,7 @@ selectedData = mkA_NS_averaged(numPic, :);
 parityNames = {'odd','even'};
 
 for parity = 1:2
-    for i = 1:5
+    for i = 2:5
         for j = 1:8 
             parityName = parityNames{parity};
 

@@ -5,7 +5,12 @@ function P4imageReconstruction(numPic)
     
     GWfilter = load("data/GWfilter.mat").GWfilter;
     
-
+    evenResponses = load("data/evenResponses.mat").evenResponses;
+    evenResponses = evenResponses(numPic, :,:);
+    
+    oddResponses = load("data/oddResponses.mat").oddResponses;
+    oddResponses = oddResponses(numPic, :,:);
+    
     %RECONSTRUCTION
     h = waitbar(0, 'Now reconstructing...');
         imageSize = [1 1] * 32;
@@ -60,7 +65,7 @@ function P4imageReconstruction(numPic)
 
         m = ceil(log2(imageSize(1)/2));
         K = 8; 
-  
+
         step  = 0;
         steps = (m+1)*K;
 
@@ -68,7 +73,7 @@ function P4imageReconstruction(numPic)
 
             for ll = 0: K-1
 
-                tmpResponse = cell2mat(evenReconstruction(ii+1, ll+1));
+                tmpResponse = cell2mat(evenResponses(ii+1, ll+1));
                 tmpGWfilter = GWfilter(ii+1,ll+1).even;
                 if ii == 0
                     tmpEven = myReconstruction2(tmpGWfilter, tmpResponse, 2^ii, imageSize);
@@ -76,7 +81,7 @@ function P4imageReconstruction(numPic)
                 else
                     tmpEven = myReconstruction2(tmpGWfilter, tmpResponse, 2^ii*3/2, imageSize);
                 end
-                tmpResponse = cell2mat(oddReconstruction(ii+1, ll+1));
+                tmpResponse = cell2mat(oddResponses(ii+1, ll+1));
                 tmpGWfilter = GWfilter(ii+1,ll+1).odd;
                 if ii == 0
                     tmpOdd  = myReconstruction2(tmpGWfilter, tmpResponse, 2^ii, imageSize);

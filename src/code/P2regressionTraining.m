@@ -25,7 +25,7 @@ oddResponses = load('data/oddResponses.mat').oddResponses;
 
 
 PriorMdl = bayeslm(numPredictors);
-parityNames = {'oddSummary','evenSummary'};
+parityNames = {'odd','even'};
 
 for parity = 1:2
     
@@ -35,7 +35,7 @@ for parity = 1:2
         responses = evenResponses;
     end 
     
-    for i = 1:5
+    for i = 2:5
         for j = 1:8 
             
             groupFilterResponses = cell2mat(responses(:,i,j));
