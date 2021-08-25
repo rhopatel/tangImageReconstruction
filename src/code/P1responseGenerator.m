@@ -43,14 +43,14 @@ for ii = 0: m
     end
 end
 cd ..
-save("data/GWfilter.mat","GWfilter");
+save("data/filters/GWfilter.mat","GWfilter");
 
 %load in each image
 %save responses for each 
 
 for imageNumber = 1: 2250
 
-    im2 = rgb2gray(imread(strcat(strcat('tang_stimuli/tang/NS/',num2str(imageNumber)), '.png')));
+    im2 = rgb2gray(imread(strcat(strcat('tang_dataset/tang_stimuli/tang/NS/',num2str(imageNumber)), '.png')));
 
     r = centerCropWindow2d(size(im2),[64 64]);
     im2 = imresize(imcrop(im2, r), [32 32]);
@@ -81,8 +81,8 @@ for imageNumber = 1: 2250
 
 end
 
-    save("data/evenResponses.mat",'evenResponses');
-    save("data/oddResponses.mat",'oddResponses');
+    save("data/responses/evenResponses.mat",'evenResponses');
+    save("data/responses/oddResponses.mat",'oddResponses');
 
 
 function res = myConv2(h, tmpX, step)

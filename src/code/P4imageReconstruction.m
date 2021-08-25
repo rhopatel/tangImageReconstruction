@@ -1,14 +1,14 @@
 function P4imageReconstruction(numPic) 
 
-    oddReconstruction = load("data/oddReconstruction.mat").oddReconstruction;
-    evenReconstruction = load("data/evenReconstruction.mat").evenReconstruction;
+    oddReconstruction = load("data/reconstructions/oddReconstruction.mat").oddReconstruction;
+    evenReconstruction = load("data/reconstructions/evenReconstruction.mat").evenReconstruction;
     
-    GWfilter = load("data/GWfilter.mat").GWfilter;
+    GWfilter = load("data/filters/GWfilter.mat").GWfilter;
     
-    evenResponses = load("data/evenResponses.mat").evenResponses;
+    evenResponses = load("data/responses/evenResponses.mat").evenResponses;
     evenResponses = reshape(evenResponses(numPic, :,:), 5, 8);
     
-    oddResponses = load("data/oddResponses.mat").oddResponses;
+    oddResponses = load("data/responses/oddResponses.mat").oddResponses;
     oddResponses = reshape(oddResponses(numPic, :,:), 5, 8);
 
     
@@ -59,17 +59,10 @@ function P4imageReconstruction(numPic)
 
         
         h = waitbar(0, 'Now Gabor filter reconstruction...');
-        imageSize = [1 1] * 32;
 
         tmpImage = zeros(imageSize);
         tmpImageEven = zeros(imageSize);
         tmpImageOdd  = zeros(imageSize);
-
-        m = ceil(log2(imageSize(1)/2));
-        K = 8; 
-
-        step  = 0;
-        steps = (m+1)*K;
 
         for ii = 0: m
 
@@ -106,7 +99,7 @@ function P4imageReconstruction(numPic)
         figure
         colormap gray
         
-        im2 = rgb2gray(imread(strcat(strcat('tang_stimuli/tang/NS/',num2str(numPic)), '.png')));
+        im2 = rgb2gray(imread(strcat(strcat('tang_dataset/tang_stimuli/tang/NS/',num2str(numPic)), '.png')));
         r = centerCropWindow2d(size(im2),[64 64]);
         im2 = imresize(imcrop(im2, r), [32 32]);
 
