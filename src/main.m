@@ -1,8 +1,15 @@
 function main()
-    disp("hi");
+    disp("starting machine learning...");
     
+    addpath code
+    addpath data
+    addpath extra
+    addpath output
+    addpath tang_dataset
+    addpath summary
+
     train();
-    test();
+    %test();
 end
 
 function train()
