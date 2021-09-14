@@ -37,5 +37,5 @@ for parity = 1:2
         end
     end
 end
-save("data/reconstructions/oddReconstruction.mat", "oddReconstruction");
-save("data/reconstructions/evenReconstruction.mat", "evenReconstruction");
+save(strcat(strcat("data/reconstructions/oddReconstruction_", num2str(numPic)), ".mat"), "oddReconstruction", "-v7.3");
+save(strcat(strcat("data/reconstructions/evenReconstruction_", num2str(numPic)),".mat"), "evenReconstruction", "-v7.3");

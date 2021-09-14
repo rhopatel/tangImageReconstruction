@@ -43,7 +43,7 @@ for ii = 0: m
     end
 end
 cd ..
-save("data/filters/GWfilter.mat","GWfilter");
+save("data/filters/GWfilter.mat","GWfilter", "-v7.3");
 
 %load in each image
 %save responses for each 
@@ -81,8 +81,8 @@ for imageNumber = 1: 2250
 
 end
 
-    save("data/responses/evenResponses.mat",'evenResponses');
-    save("data/responses/oddResponses.mat",'oddResponses');
+    save("data/responses/evenResponses.mat",'evenResponses', "-v7.3");
+    save("data/responses/oddResponses.mat",'oddResponses', "-v7.3");
 
 
 function res = myConv2(h, tmpX, step)

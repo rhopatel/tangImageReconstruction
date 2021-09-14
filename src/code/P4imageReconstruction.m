@@ -1,7 +1,9 @@
 function P4imageReconstruction(numPic) 
 
-    oddReconstruction = load("data/reconstructions/oddReconstruction.mat").oddReconstruction;
-    evenReconstruction = load("data/reconstructions/evenReconstruction.mat").evenReconstruction;
+    oddString = strcat("data/reconstructions/oddReconstruction_", num2str(numPic));
+    evenString = strcat("data/reconstructions/evenReconstruction_", num2str(numPic));
+    oddReconstruction = load(strcat(oddString, ".mat")).oddReconstruction;
+    evenReconstruction = load(strcat(evenString, ".mat")).evenReconstruction;
     
     GWfilter = load("data/filters/GWfilter.mat").GWfilter;
     
@@ -26,7 +28,7 @@ function P4imageReconstruction(numPic)
         step  = 0;
         steps = (m+1)*K;
 
-        for ii = 1: m
+        for ii = 0: m
 
             for ll = 0: K-1
 
@@ -54,7 +56,7 @@ function P4imageReconstruction(numPic)
 
             end
         end
-        neuralReconstruction = tmpImageEven + tmpImageOdd;
+        neuralReconstruction = uint8(tmpImageEven) + uint8(tmpImageOdd);
         close(h)
 
         
@@ -64,7 +66,7 @@ function P4imageReconstruction(numPic)
         tmpImageEven = zeros(imageSize);
         tmpImageOdd  = zeros(imageSize);
 
-        for ii = 0: m
+        for ii = 1: m
 
             for ll = 0: K-1
 
@@ -92,7 +94,7 @@ function P4imageReconstruction(numPic)
 
             end
         end
-        gaborReconstruction = tmpImageEven + tmpImageOdd;
+        gaborReconstruction = uint8(tmpImageEven) + uint8(tmpImageOdd);
         close(h)
         
         %% show the original image and result
@@ -103,29 +105,31 @@ function P4imageReconstruction(numPic)
         r = centerCropWindow2d(size(im2),[64 64]);
         im2 = imresize(imcrop(im2, r), [32 32]);
 
-        subplot(2,2,1)
-        clim = [0 255];
-        imagesc(im2', clim)
-        axis xy square
-        set(gca, 'TickDir', 'out')
-        title('original image')
+        %subplot(2,2,1)
+        %clim = [0 255];
+        %imagesc(im2', clim)
+        %axis xy square
+        %set(gca, 'TickDir', 'out')
+        %title('original image')
+	imwrite(im2', "output/original.png");
 
-        subplot(2,2,2)
+        %subplot(2,2,2)
         % clim = ([0 255] - meanValue)  * 23.2960;
         % imagesc(resultImage', clim)
-        imagesc(neuralReconstruction')
-        axis xy square
-        set(gca, 'TickDir', 'out')
-        title('new reconstructed image')
+        %imagesc(neuralReconstruction')
+        %axis xy square
+        %set(gca, 'TickDir', 'out')
+        %title('new reconstructed image')
         
-        
+        imwrite(neuralReconstruction', "output/reconstruction.png");
        
-        subplot(2,2,3)
-        imagesc(gaborReconstruction')
-        axis xy square
-        set(gca, 'TickDir', 'out')
-        title('Gabor filter reconstruction image')
+        %subplot(2,2,3)
+        %imagesc(gaborReconstruction')
+        %axis xy square
+        %set(gca, 'TickDir', 'out')
+        %title('Gabor filter reconstruction image')
         
+	imwrite(gaborReconstruction', "output/gaborReconstruction.png");
         
 
 end

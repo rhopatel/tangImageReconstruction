@@ -57,7 +57,7 @@ for parity = 1:2
             
             filename = strcat(strcat(fullfile(parityName,"regressionModels_"), num2str(i)), strcat("_", num2str(j)),".mat");
             modelGroup = reshape(groupRegressionModels, N, N);
-            save(strcat("data/models/",filename),"modelGroup");
+            save(strcat("data/models/",filename),"modelGroup", "-v7.3");
 
             clear modelGroup;
             clear groupRegressionModels;

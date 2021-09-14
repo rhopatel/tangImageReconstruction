@@ -1,28 +1,64 @@
-function main()
+
+classdef main
+
+methods(Static) 
+
+function run(numPic)
     disp("starting machine learning...");
     
-    addpath code
-    addpath data
-    addpath extra
-    addpath output
-    addpath tang_dataset
-    addpath summary
+    main.addpaths();
+    main.train();
+    %main.testAll();
+    %saveAll();
 
-    train();
-    %test();
+    test(numPic);
+    main.save(numPic);
 end
 
 function train()
+    disp("training...");
     P1responseGenerator();
     P2regressionTraining();
 
 end
 
-function test()
+function test(numPic)
+    disp(strcat("testing on image #", num2str(numPic)));
+    P3neuralDataConversion(numPic);
+end
+
+
+function testAll()
+    disp("testing on all images");
     for i = 1:2250
+	disp(strcat("testAll - testing on image #", num2str(i)));
         P3neuralDataConversion(i);
     end
 end
 
+function save(numPic)
+    disp(strcat("saving image #", num2str(numPic)));
+    P4imageReconstruction(numPic);
+end
 
+function saveAll()
+    disp("saving all images");
+    for i = 1:2250
+        disp(strcat("saveAll - saving image #", num2str(i)));
+        P4imageReconstruction(i);
+    end
+end
 
+function addpaths()
+    disp("adding paths");
+    addpath code
+    addpath data
+    addpath tang_dataset
+    addpath summary
+    addpath output
+    addpath extra
+end
+
+end
+
+end
