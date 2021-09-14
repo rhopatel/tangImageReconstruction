@@ -12,6 +12,7 @@ selectedData = mkA_NS_averaged(numPic, :);
 
 parityNames = {'odd','even'};
 
+
 for parity = 1:2
     for i = 2:5
         for j = 1:8 
@@ -21,7 +22,8 @@ for parity = 1:2
             groupRegressionModels = load(strcat("data/models/", filename)).modelGroup;
 
             groupLength = numel(groupRegressionModels);
-            groupRegressionModels = reshape(groupRegressionModels, 1, groupLength);
+            %groupRegressionModels = reshape(groupRegressionModels, 1, groupLength);
+            
             for k = 1:groupLength
                 PosteriorMdl = groupRegressionModels(k);
                 filterResponses(k) = forecast(PosteriorMdl{1}, selectedData);
