@@ -11,13 +11,14 @@ function run(numPic)
     %main.testAll();
     %saveAll();
 
-    test(numPic);
+    main.test(numPic);
     main.save(numPic);
 end
 
 function train()
-    disp("training...");
+    disp("generating responses...");
     P1responseGenerator();
+    disp("training...");
     P2regressionTraining();
 
 end

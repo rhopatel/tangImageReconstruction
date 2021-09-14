@@ -66,7 +66,7 @@ function P4imageReconstruction(numPic)
         tmpImageEven = zeros(imageSize);
         tmpImageOdd  = zeros(imageSize);
 
-        for ii = 1: m
+        for ii = 0: m
 
             for ll = 0: K-1
 
@@ -121,7 +121,7 @@ function P4imageReconstruction(numPic)
         %set(gca, 'TickDir', 'out')
         %title('new reconstructed image')
         
-        imwrite(neuralReconstruction', "output/reconstruction.png");
+    imwrite(neuralReconstruction', "output/reconstruction.png");
        
         %subplot(2,2,3)
         %imagesc(gaborReconstruction')

@@ -7,34 +7,38 @@ mkA_NS_averaged = reshape(mean(mkA_NS_data, 2, "omitnan"), 2250, 1225);
 
 selectedData = mkA_NS_averaged(numPic, :);
 
-
-%regressionModels = load('responseRegression.mat').regressionModels;
-
 parityNames = {'odd','even'};
 
 
 for parity = 1:2
-    for i = 2:5
+    for i = 1:5
         for j = 1:8 
             parityName = parityNames{parity};
 
             filename = strcat(strcat(fullfile(parityName,"regressionModels_"), num2str(i)), strcat("_", num2str(j)),".mat");
+            %disp("loading file..")
             groupRegressionModels = load(strcat("data/models/", filename)).modelGroup;
+            %disp("load")
+            nrow = size(groupRegressionModels, 1);
+            ncol = size(groupRegressionModels, 2);
 
-            groupLength = numel(groupRegressionModels);
-            %groupRegressionModels = reshape(groupRegressionModels, 1, groupLength);
-            
-            for k = 1:groupLength
-                PosteriorMdl = groupRegressionModels(k);
-                filterResponses(k) = forecast(PosteriorMdl{1}, selectedData);
+            for k = 0:numel(groupRegressionModels)
+                %disp(k)
+                a = mod(k, nrow)+1;
+                b = mod(k, ncol)+1;
+                %disp("forecasting");
+                model = groupRegressionModels(a,b);
+                responses = forecast(model{1}, selectedData);
+                %disp("forecasted");
                 %do for all gabor filter responses ^
+                if (parity == 1) 
+                    oddReconstruction(i,j) = responses;
+
+                 else 
+                    evenReconstruction(i,j) = responses;
+       
+                 end
             end
-             N = ceil(sqrt(numel(filterResponses)));
-             if (parity == 1) 
-                oddReconstruction(i,j) = {reshape(filterResponses, N, N)};
-             else 
-                evenReconstruction(i,j) = {reshape(filterResponses, N, N)};       
-             end
 
         end
     end
