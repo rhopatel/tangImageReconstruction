@@ -28,7 +28,7 @@ param.a0 = a0;
 param.b0 = b0;
 
 % set the filter bank
-for ii = 0: m
+for ii = 1: m
     for ll = 0: K-1
 
         filterSize = 4 * 2^ii;

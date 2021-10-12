@@ -1,4 +1,7 @@
-function P3neuralDataConversion(numPic) 
+function metrics2() 
+
+disp("running metrics")
+
 
 %load in any given image neural responses
 %use the models to forecast the Gabor response and reconstruct
@@ -9,7 +12,15 @@ selectedData = mkA_NS_averaged(numPic, :);
 
 parityNames = {'odd','even'};
 
+for neuron = 1:1225
 
+for image = 1:2250
+	disp(image)
+    
+end
+end
+
+%{
 for parity = 1:2
     for i = 2:5
         for j = 1:8 
@@ -43,5 +54,7 @@ for parity = 1:2
         end
     end
 end
+
 save(strcat(strcat("data/reconstructions/oddReconstruction_", num2str(numPic)), ".mat"), "oddReconstruction", "-v7.3");
 save(strcat(strcat("data/reconstructions/evenReconstruction_", num2str(numPic)),".mat"), "evenReconstruction", "-v7.3");
+%}

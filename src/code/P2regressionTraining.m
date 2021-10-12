@@ -34,7 +34,7 @@ for parity = 1:2
         responses = evenResponses;
     end 
     
-    for i = 1:5
+    for i = 2:5
         for j = 1:8 
             
             groupFilterResponses = cell2mat(responses(:,i,j));

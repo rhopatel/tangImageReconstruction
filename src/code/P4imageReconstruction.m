@@ -28,7 +28,7 @@ function P4imageReconstruction(numPic)
         step  = 0;
         steps = (m+1)*K;
 
-        for ii = 0: m
+        for ii = 1: m
 
             for ll = 0: K-1
 
@@ -66,7 +66,7 @@ function P4imageReconstruction(numPic)
         tmpImageEven = zeros(imageSize);
         tmpImageOdd  = zeros(imageSize);
 
-        for ii = 0: m
+        for ii = 1: m
 
             for ll = 0: K-1
 
@@ -94,8 +94,15 @@ function P4imageReconstruction(numPic)
 
             end
         end
-        gaborReconstruction = uint8(tmpImageEven) + uint8(tmpImageOdd);
-        close(h)
+        disp(max(tmpImageEven))
+	disp(min(tmpImageOdd))
+	disp(max(tmpImageEven + tmpImageOdd))
+	save("tempImageEven", "tmpImageEven");
+	save("tempImageOdd", "tmpImageOdd");
+	gaborReconstruction = uint8(tmpImageEven + tmpImageOdd);
+        save("gabor.mat","gaborReconstruction");
+	%disp(min(gaborReconstruction))
+	close(h)
         
         %% show the original image and result
         figure

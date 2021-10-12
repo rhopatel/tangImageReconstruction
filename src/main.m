@@ -17,7 +17,7 @@ end
 
 function train()
     disp("generating responses...");
-    P1responseGenerator();
+    P0responseGenerator();
     disp("training...");
     P2regressionTraining();
 
@@ -50,6 +50,11 @@ function saveAll()
     end
 end
 
+function runMetrics()
+    disp("hi");
+    metrics2();
+end
+
 function addpaths()
     disp("adding paths");
     addpath code
@@ -61,5 +66,4 @@ function addpaths()
 end
 
 end
-
 end
