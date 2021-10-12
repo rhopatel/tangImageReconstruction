@@ -52,7 +52,7 @@ end
 
 function runMetrics()
     disp("hi");
-    metrics2();
+    metrics();
 end
 
 function addpaths()

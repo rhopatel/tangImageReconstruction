@@ -1,4 +1,4 @@
-function P3neuralDataConversion(numPic) 
+function [oddReconstruction,evenReconstruction] = P3neuralDataConversion(numPic) 
 
 %load in any given image neural responses
 %use the models to forecast the Gabor response and reconstruct

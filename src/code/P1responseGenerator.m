@@ -1,4 +1,4 @@
-function P1responseGenerator() 
+function [oddResponses, evenResponses] = P1responseGenerator() 
 cd code
 
 %generate Gabor filters and compute Gabor filter responses
