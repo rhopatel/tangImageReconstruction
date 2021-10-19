@@ -8,16 +8,41 @@ disp("running metrics")
 mkA_NS_data = load('tang_dataset/tang_data/mkA_NS_data.mat').mkA_NS;
 mkA_NS_averaged = reshape(mean(mkA_NS_data, 2, "omitnan"), 2250, 1225);
 
-selectedData = mkA_NS_averaged(numPic, :);
+numImages = 2250;
+numNeurons = 1;
 
-parityNames = {'odd','even'};
+groundTruthResponses = cell(1225); 
+predictedResponses = cell(1225); 
+for neuron = 1:numNeurons
+    groundTruthResponses{neuron} = ones(numImages, 1);
+    predictedResponses{neuron} = ones(numImages, 1);
 
-for neuron = 1:1225
-
-for image = 1:2250
-	disp(image)
-    
 end
+
+for image = 1:numImages
+    realData = mkA_NS_averaged(image, :);
+    [predictedData, x] = P3neuralDataConversion(image);
+    for neuron = 1:numNeurons
+        %ground truth first
+        
+        groundTruthResponses{neuron}(image) = realData(neuron);
+        predictedResponses{neuron}(image) = predictedData(neuron);
+        disp("done")
+
+    end
+end
+
+%genericResponse = rand(2250, 1);
+
+for neuron = 1:numNeurons
+    f = figure;
+    plot(1:numImages, groundTruthResponses{neuron})
+    plot(1:numImages, predictedResponses{neuron})
+
+    title("tuning curves")
+    xlabel('Image #') 
+    ylabel('Response') 
+    saveas(f, strcat(strcat("metrics/tuningCurves", num2str(neuron)), ".png"))
 end
 
 %{
